@@ -1,37 +1,29 @@
-# User Management System with Pure PHP
-user management with pure php(framework thinking)
+# UserManagement-Laravel
+
 
 ## Project Setup
 ```bash
-  git clone https://github.com/WaiYanPhoneAant/UserManagement.git
+  git clone https://github.com/WaiYanPhoneAant/UserManagement-Laravel.git
 ```
 ```bash
-  cd UserManagement
+  cd UserManagement-Laravel
 ```
 
-## Database configuration in config.php
+### Connect your database in .env file
 
+### migration and Default Data Seeding
 ```php
-  "database"=>[
-    'dbhost'=>'localhost', //your host
-    'dbname'=>'database name',//database name
-    'dbuser'=>'root',//user name
-    'dbpassword'=>''//password
-   ]
+  php artisan migrate --seed
 ```
 
-### Migration
+### serve project
 ```bash
-   php migrate.php
+   php artisan serve
 ```
 
-### Run 
-```bash
-   php -S localhost:8000
-```
 
 ###  Now You Can Start Login with admin account
 ```info
-    email=admin@gmail.com
-    password=admin
+    username=admin
+    password=admin1234
 ```
