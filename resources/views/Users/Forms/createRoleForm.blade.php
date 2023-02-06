@@ -22,14 +22,6 @@
                 <div class="mt-3 ms-2 user-select-none">
                     <h3 class="fw-light">Role & Permission</h3>
                     <div class="input-gp mt-5">
-                        <!-- <div class="form-check mb-3 col-md-3 m-3">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                              Allow login
-                            </label>
-                        </div> -->
-                    <!-- input for password-field -->
-
                     @if (session('error'))
                     <span class="text-danger m-2">*{{session('error')}}</span>
                     @endif
@@ -54,72 +46,12 @@
                                                     </label>
                                                 </div>
                                             @endforeach
-{{--
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox"  name="userView"  id="userView" >
-                                                <label class="form-check-label" for="userView">
-                                                User view
-                                                </label>
-                                            </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input" type="checkbox"  name="userUpdate"  id="userUpdate" >
-                                                <label class="form-check-label" for="userUpdate">
-                                                User Update
-                                                </label>
-                                            </div>
-                                            <div class="form-check ">
-                                                <input class="form-check-input"  name="userDelete"   type="checkbox" id="user Delete" >
-                                                <label class="form-check-label"  for="user Delete">
-                                                User Delete
-                                                </label>
-                                            </div> --}}
                                         </div>
                                 </div>
                                 </div>
                                 <hr>
                             </div>
                     @endforeach
-                        {{-- <div class="row m-0 p-3 my-3">
-                            <div class="mb-3  d-flex flex-wrap align-items-center gap-5">
-                                <label for="userName" class="form-label fs-4">Role</label>
-                                <div class="form-check ">
-                                    <input class="form-check-input" type="checkbox" value="" id="roleSelectAll" >
-                                    <label class="form-check-label" for="roleSelectAll">
-                                      Select All
-                                    </label>
-                                </div>
-                                <div class="roleCheckBoxes">
-                                    <div class="ms-3">
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox"  name="roleCreate"   id="roleCreate" >
-                                            <label class="form-check-label" for="roleCreate">
-                                              Role Create
-                                            </label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox" name="roleView"  id="RoleView" >
-                                            <label class="form-check-label" for="RoleView">
-                                              Role view
-                                            </label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox" name="roleUpdate"  id="RoleUpdate" >
-                                            <label class="form-check-label" for="RoleUpdate">
-                                              Role Update
-                                            </label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input class="form-check-input" type="checkbox" name="roleDelete" id="RoleDelete" >
-                                            <label class="form-check-label" for="RoleDelete">
-                                             Role Delete
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-
-                        </div> --}}
                     </div>
                 </div>
 

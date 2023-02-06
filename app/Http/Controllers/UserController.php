@@ -91,7 +91,7 @@ class UserController extends Controller
             'email'=>'unique:users,email',
             'phone'=>'numeric|unique:users,phone',
             'gender'=>'required|boolean',
-            'role_id'=>'required|boolean',
+            'role_id'=>'required|numeric',
             'is_active'=>'boolean',
             'username'=>'required',
             'password'=>'required|min:8',
