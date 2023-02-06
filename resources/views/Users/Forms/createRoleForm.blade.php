@@ -1,9 +1,10 @@
 @extends('Users.Master.App')
 @section('roleList','active text-white   bg-secondary')
+@section('header','Role Creation Form')
 @section('content')
 
 <div class="m-3 mx-2 pb-5">
-    <h1 class="fw-light m-2 mb-5">Role Creation Form</h1>
+    <h1 class="fw-light m-2 mb-5 d-block d-md-none">Role Creation Form</h1>
     <div class="form mt-3">
         <form action="{{route('roleCreate')}}" method="POST">
             @csrf
