@@ -22,12 +22,6 @@ class DatabaseSeeder extends Seeder
     private $permissions=['view','update','create','delete'];
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         User::create([
                 'name'=>'admin',
                 'username'=>'admin',
@@ -44,7 +38,6 @@ class DatabaseSeeder extends Seeder
             $featureData=features::create([
                 'name'=>$feature,
             ]);
-
             //adding permission for features
             foreach ($this->permissions as $permission) {
                 # code...
@@ -54,6 +47,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+        //default role create
         roles::create([
             'name'=>'admin'
         ]);

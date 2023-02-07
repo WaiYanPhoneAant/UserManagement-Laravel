@@ -14,15 +14,18 @@ class RolesController extends Controller
     public function roleListView()
     {
         # code...
-        $roles=roles::paginate('5');
-        return view('Users.roleList',compact('roles'));
+        $roles=roles::when(request('search'),function($query){
+            $query->where('name','like','%'.request('search').'%');
+        })->paginate('8');
+        $role=$roles->appends(request()->all());
+        return view('App.roles.roleList',compact('roles'));
     }
 
     //role create blade form
     public function roleCreateForm(){
         $features=features::get();
         $permissions=$this->permissions($features);
-        return view('Users.Forms.createRoleForm',compact('features','permissions'));
+        return view('App.Forms.createRoleForm',compact('features','permissions'));
     }
 
     //role Creation
@@ -41,8 +44,6 @@ class RolesController extends Controller
         $this->roleCreation($permissions,$roleData);
         return redirect()->route('roleList')->with('success','Successfully Create New Role');
     }
-
-
     //get role permissions
     private function permissions($features){
         $permissions=[];
@@ -62,12 +63,25 @@ class RolesController extends Controller
     {
         # code...
         $role=$this->defaultRoleCheck($id);
+        if(!$role){
+           return back()->with('role-error','Invalid Role Id');
+        }
         $features=features::get();
         $permissions=$this->permissions($features);
         $permissions_id=role_permissions::where('role_id',$id)->get();
-        return view('Users.Forms.roleEditForm',compact('features','permissions','permissions_id','role'));
-    }
+        return view('App.Forms.roleEditForm',compact('features','permissions','permissions_id','role'));
 
+
+    }
+    //for only edut permission role
+    public function editPermission(Request $request)
+    {
+        # code...
+        Validator::make($request->toArray(),[
+            'roleId'=>'required',
+        ])->validate();
+        return redirect()->route('roleEditForm',$request->roleId);
+    }
     //role update
     public function roleUpdate(Request $request)
     {
@@ -77,7 +91,7 @@ class RolesController extends Controller
         $permission_arr=$request->toArray();
         $permissions=array_splice($permission_arr,3);
         if(count($permissions)==0){
-            return back()->with('error','A role must have at least one permission.from edit');
+            return back()->with('error','A role must have at least one permission');
         }
         roles::where('id',$request->role_id)->update([
             'name'=>$request->roleName
@@ -101,11 +115,15 @@ class RolesController extends Controller
     {
         # code...
         $role=roles::where('id',$id)->first();
-        $roleName=$role->name;
-        if($roleName=='admin'){
-            return back();
+        $roleName=$role?$role->name:'';
+        if($role && $roleName!='admin'){
+            if($roleName=='admin'){
+                return false;
+            }
+            return $role;
         }
-        return $role;
+        return false;
+
     }
 
 

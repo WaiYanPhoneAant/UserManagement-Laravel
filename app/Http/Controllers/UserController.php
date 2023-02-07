@@ -15,14 +15,19 @@ class UserController extends Controller
     public function userListView()
     {
         # code...
-        $users=User::paginate(8);
-        return view('Users.user.userList',compact('users'));
+        $users=User::when(request('search'),function($query){
+            $query->where('name','like','%'.request('search').'%')
+            ->orWhere('email','like','%'.request('search').'%')
+            ->orWhere('phone','like','%'.request('search').'%');
+        })->paginate('8');
+        $users=$users->appends(request()->all());
+        return view('App.user.userList',compact('users'));
     }
     public function userCreateForm()
     {
         # code...
         $roles=roles::get();
-        return view('Users.Forms.createUserForm',compact('roles'));
+        return view('App.Forms.createUserForm',compact('roles'));
     }
     public function userCreate(Request $request)
     {
@@ -39,8 +44,20 @@ class UserController extends Controller
     {
         # code...
         $user=User::where('id',$id)->first();
-        $roles=roles::get();
-        return view('Users.Forms.editUserForm',compact('roles','user'));
+       if($user){
+            $roles=roles::get();
+            return view('App.Forms.editUserForm',compact('roles','user'));
+       }
+       return back()->with('user-error','Invalid User Id');
+    }
+    //for only edut permission user
+    public function editPermission(Request $request)
+    {
+        # code...
+        Validator::make($request->toArray(),[
+            'userId'=>'required',
+        ])->validate();
+        return redirect()->route('userEditForm',$request->userId);
     }
 
     public function userDataUpdate(Request $request,$id)
@@ -67,7 +84,7 @@ class UserController extends Controller
     public function userInfo($id){
         $user=User::where('id',$id)->first();
         $users=User::get();
-        return view('Users.user.userInfo',compact('user','users'));
+        return view('App.user.userInfo',compact('user','users'));
     }
 
 
@@ -90,7 +107,7 @@ class UserController extends Controller
             'name'=>'required|max:30',
             'email'=>'unique:users,email',
             'phone'=>'numeric|unique:users,phone',
-            'gender'=>'required|boolean',
+            'gender'=>'boolean',
             'role_id'=>'required|numeric',
             'is_active'=>'boolean',
             'username'=>'required',
@@ -108,8 +125,8 @@ class UserController extends Controller
             'name'=>'required|max:30',
             'email'=>'unique:users,email,'.$id,
             'phone'=>'numeric|unique:users,phone,'.$id,
-            'gender'=>'required|boolean',
-            'role_id'=>'required|boolean',
+            'gender'=>'boolean',
+            'role_id'=>'required|numeric',
             'is_active'=>'boolean',
             'username'=>'required',
         ])->validate();

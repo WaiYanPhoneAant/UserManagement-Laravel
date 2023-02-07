@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        
+
     ];
 
     /**
@@ -67,5 +67,15 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'active_check'=>ActiveCheck::class,
+        //users
+        'user.view'=>\App\Http\Middleware\permissions\user\view::class,
+        'user.create'=>\App\Http\Middleware\permissions\user\create::class,
+        'user.delete'=>\App\Http\Middleware\permissions\user\delete::class,
+        'user.update'=>\App\Http\Middleware\permissions\user\update::class,
+        //roles
+        'role.view'=>\App\Http\Middleware\permissions\role\view::class,
+        'role.create'=>\App\Http\Middleware\permissions\role\create::class,
+        'role.delete'=>\App\Http\Middleware\permissions\role\delete::class,
+        'role.update'=>\App\Http\Middleware\permissions\role\update::class,
     ];
 }

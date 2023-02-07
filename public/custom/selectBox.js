@@ -8,6 +8,10 @@ const roleParentSelect=document.querySelector('.roleCheckBoxes');
 
 checkAll(roleCheckAll,roleParentSelect);
 
+const customerCheckAll=document.querySelector('#customersselectAll');
+const customerParentSelect=document.querySelector('.customersCheckBoxes');
+
+checkAll(customerCheckAll,customerParentSelect);
 
 function checkAll(mainCheckBox,parentCheckbox) {
     mainCheckBox.addEventListener('change',()=>{

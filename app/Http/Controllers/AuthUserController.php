@@ -14,7 +14,7 @@ class AuthUserController extends Controller
     public function AuthUserProfile()
     {
         # code...
-        return view('Users.AuthUser.profile');
+        return view('App.AuthUser.profile');
     }
     public function passwordUpdate(Request $request){
         $this->pwValidate($request->toArray());

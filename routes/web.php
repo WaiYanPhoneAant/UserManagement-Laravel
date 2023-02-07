@@ -8,29 +8,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-
-// })->name('dashboard');
-
-
-
-
-
-// Route::prefix('admin')->group(function () {
-
-// });
-
 
 Route::middleware([
     'auth:sanctum',
@@ -42,15 +19,28 @@ Route::middleware([
 
     //user routes
     Route::prefix('user')->group(function () {
+        //users view routes
         Route::get('/list',[UserController::class,'userListView'])->name('userList');
+        Route::middleware('user.view')->group(function () {
+            Route::get('/view/{id}/info',[UserController::class,'userInfo'])->name('userInfo');
+        });
+        //users creation routes
+        Route::middleware('user.create')->group(function () {
+            Route::get('/create/form',[UserController::class,'userCreateForm'])->name('userCreateForm');
+            Route::post('/create',[UserController::class,'userCreate'])->name('userCreate');
+        });
+        //user Deletion routes
+        Route::middleware('user.delete')->group(function () {
+            Route::post('/delete/{id}',[UserController::class,'userDelete'])->name('userDelete');
 
-        Route::get('/create/form',[UserController::class,'userCreateForm'])->name('userCreateForm');
-        Route::post('/create',[UserController::class,'userCreate'])->name('userCreate');
-        Route::post('/delete/{id}',[UserController::class,'userDelete'])->name('userDelete');
+        });
+        //user updation routes
+        Route::middleware('user.update')->group(function () {
+            Route::get('permission/edit/',[UserController::class,'editPermission'])->name('editPermission');
+            Route::get('/edit/{id}/form',[UserController::class,'userEditForm'])->name('userEditForm');
+            Route::post('/update/{id}/user/data',[UserController::class,'userDataUpdate'])->name('userDataUpdate');
+        });
 
-        Route::get('/edit/{id}/form',[UserController::class,'userEditForm'])->name('userEditForm');
-        Route::post('/update/{id}/user/data',[UserController::class,'userDataUpdate'])->name('userDataUpdate');
-        Route::get('/view/{id}/info',[UserController::class,'userInfo'])->name('userInfo');
     });
 
     //auth user routes
@@ -63,24 +53,28 @@ Route::middleware([
     //role
     Route::prefix('role')->group(function () {
         //view
-        Route::get('/list',[RolesController::class,'roleListView'])->name('roleList');
+        Route::middleware('role.view')->group(function () {
 
+            Route::get('/list',[RolesController::class,'roleListView'])->name('roleList');
+        });
         //create
-        Route::post('/create',[RolesController::class,'roleCreate'])->name('roleCreate');
-        Route::get('/create/form',[RolesController::class,'roleCreateForm'])->name('roleCreateForm');
-
+        Route::middleware('role.create')->group(function () {
+            Route::post('/create',[RolesController::class,'roleCreate'])->name('roleCreate');
+            Route::get('/create/form',[RolesController::class,'roleCreateForm'])->name('roleCreateForm');
+        });
         //update
-        Route::get('/edit/{id}/form',[RolesController::class,'roleEditForm'])->name('roleEditForm');
-        Route::post('/update/{id}',[RolesController::class,'roleUpdate'])->name('roleUpdate');
-
+        Route::middleware('role.update')->group(function () {
+            Route::get('permission/role/edit',[RolesController::class,'editPermission'])->name('roleEditPermission');
+            Route::get('/edit/{id}/form',[RolesController::class,'roleEditForm'])->name('roleEditForm');
+            Route::post('/update/{id}',[RolesController::class,'roleUpdate'])->name('roleUpdate');
+        });
         //delete
-        Route::post('/delete/{id}',[RolesController::class,'roleDelete'])->name('roleDelete');
-    });
-
-    //customer
-    Route::prefix('customer')->group(function () {
-        Route::get('/list',[CustomersController::class,'customerList'])->name('customerList');
+        Route::middleware('role.delete')->group(function () {
+            Route::post('/delete/{id}',[RolesController::class,'roleDelete'])->name('roleDelete');
+        });
 
     });
+
+
 });
 
