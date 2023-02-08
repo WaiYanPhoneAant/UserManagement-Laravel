@@ -3,7 +3,9 @@
 @section('header','My Profile')
 @section('content')
 
-<?php $user=Auth::user(); ?>
+<?php
+use App\Helpers\permissionHelpers; 
+$user=Auth::user(); ?>
 <div class="m-3">
     <div class="row m-0 justify-content-center align-items-lg-start mb-4">
       <div class="card mt-5 col-sm-12 col-lg-5">
@@ -46,12 +48,16 @@
                   </li>
                 </ul>
           </div>
+          @if (permissionHelpers::checkPermission('user','update'))
           <div class="border-bottom mb-2">
+
               <a href="{{route('userEditForm',$user->id)}}" class="w-100 btn btn-primary">
                   <i class="fa-regular fa-pen-to-square me-2"></i>
                   Edit
               </a>
+
           </div>
+          @endif
       </div>
 
       {{-- password update form --}}

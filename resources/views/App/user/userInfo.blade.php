@@ -1,3 +1,4 @@
+<?php use App\Helpers\permissionHelpers; ?>
 @extends('App.Master.App')
 @section('userList','active text-white   bg-secondary')
 @section('header','User Info Detail')
@@ -51,12 +52,16 @@
                     </li>
                   </ul>
             </div>
+            @if (permissionHelpers::checkPermission('user','update'))
             <div class="border-bottom mb-2">
+
                 <a href="{{route('userEditForm',$user->id)}}" class="w-100 btn btn-primary">
                     <i class="fa-regular fa-pen-to-square me-2"></i>
                     Edit
                 </a>
+
             </div>
+            @endif
         </div>
         <div class="card col-sm-12  col-lg-5 m-5">
             <div class="card-header fw-bold">

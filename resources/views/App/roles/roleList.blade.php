@@ -18,7 +18,7 @@
                     <button type="submit" class="nav-link px-2 py-1 m-2 fs-5 border border-1 rounded-1"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             @if (request('search')!='')
-                <a class="btn border border-2" href="{{route('roleList')}}">
+                <a class="btn btn-light border border-2" href="{{route('roleList')}}">
                     {{request('search')}}
                     <i class="fa-regular fa-circle-xmark text-danger p-1"></i>
                 </a>
@@ -38,7 +38,10 @@
             <tr>
                 <th scope="col">Role id</th>
                 <th scope="col">Roles</th>
-                <th scope="col">Actions</th>
+                @if (permissionHelpers::checkPermission('role','update') || permissionHelpers::checkPermission('role','delete'))
+                    <th scope="col">Actions</th>
+                @endif
+
             </tr>
             </thead>
             <tbody>
