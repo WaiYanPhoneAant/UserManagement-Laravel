@@ -36,6 +36,7 @@
         <table class="table border border-1 table-striped ps-3 text-center" >
             <thead>
             <tr>
+                <th scope="col">Role id</th>
                 <th scope="col">Roles</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -46,6 +47,7 @@
             @endif
             @foreach ($roles as $role)
             <tr>
+                <td>{{$role->id}}</td>
                 <td>{{$role->name}}</td>
                @if ($role->name!='admin')
                <td>

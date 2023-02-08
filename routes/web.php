@@ -16,31 +16,29 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard',fn()=> redirect()->route('dashboard'));
     Route::get('/',[DashboardController::class,'dashboardView'])->name('dashboard');
-
-    //user routes
+    //user
     Route::prefix('user')->group(function () {
-        //users view routes
+        //users view
         Route::get('/list',[UserController::class,'userListView'])->name('userList');
         Route::middleware('user.view')->group(function () {
             Route::get('/view/{id}/info',[UserController::class,'userInfo'])->name('userInfo');
         });
-        //users creation routes
+        //users create
         Route::middleware('user.create')->group(function () {
             Route::get('/create/form',[UserController::class,'userCreateForm'])->name('userCreateForm');
             Route::post('/create',[UserController::class,'userCreate'])->name('userCreate');
         });
-        //user Deletion routes
+        //user delete
         Route::middleware('user.delete')->group(function () {
             Route::post('/delete/{id}',[UserController::class,'userDelete'])->name('userDelete');
 
         });
-        //user updation routes
+        //user update
         Route::middleware('user.update')->group(function () {
             Route::get('permission/edit/',[UserController::class,'editPermission'])->name('editPermission');
             Route::get('/edit/{id}/form',[UserController::class,'userEditForm'])->name('userEditForm');
             Route::post('/update/{id}/user/data',[UserController::class,'userDataUpdate'])->name('userDataUpdate');
         });
-
     });
 
     //auth user routes
@@ -52,9 +50,9 @@ Route::middleware([
 
     //role
     Route::prefix('role')->group(function () {
+
         //view
         Route::middleware('role.view')->group(function () {
-
             Route::get('/list',[RolesController::class,'roleListView'])->name('roleList');
         });
         //create

@@ -39,6 +39,7 @@
         <table class="table table-striped  border border-1 m-auto text-center" >
             <thead>
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Username</th>
                 <th scope="col">name</th>
                 <th scope="col">Email</th>
@@ -54,6 +55,7 @@
 
 
             <tr>
+                <td>{{$user->id}}</td>
                 <td>{{$user->username}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>

@@ -17,7 +17,6 @@ class DashboardController extends Controller
 
     public function dashboardView()
     {
-        # code...
         $rolecount=roles::count();
         $usercount=User::count();
         $customercount=customers::count();

@@ -57,13 +57,6 @@
                 <div class="mt-3 ms-2">
                     <h3 class="fw-light">Role & Permission</h3>
                     <div class="input-gp">
-                        {{-- <div class="form-check mb-3 col-md-3 m-3">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                            <label class="form-check-label" for="flexCheckChecked">
-                              Allow login
-                            </label>
-                        </div> --}}
-                    <!-- input for password-field -->
                         <div class="password-gp row m-0">
                             <div class="mb-3 col-md-3 col-sm-5">
                                 <label for="userName" class="form-label">*Username</label>

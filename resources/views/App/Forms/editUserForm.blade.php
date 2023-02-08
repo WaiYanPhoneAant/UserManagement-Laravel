@@ -35,7 +35,7 @@
                       <div class="mb-3 col-md-3">
                         <label for="gender" class="form-label">Gender</label>
                         <select name="gender" class="form-select " id="gender" aria-label="Default select example">
-                            <option value="">Select gender</option>
+                            <option >Select gender</option>
                             <option {{old('role_id',$user->gender)==1?'selected':'' }} value="1">Male</option>
                             <option {{old('role_id',$user->gender)==0?'selected':'' }} value="0">Female</option>
                         </select>

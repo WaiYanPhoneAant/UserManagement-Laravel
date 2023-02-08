@@ -19,7 +19,7 @@
               </div> --}}
               <img src="{{$user->profile_photo_url}}" alt="" width="70px" height="70px" class=" border border-2 border-secondary rounded-circle">
               <h3 class="fw-light fs-4 mt-3 mb-1 text-capitalize">{{$user->name}}</h3>
-              <span class="text-muted fs-6">admin</span>
+              <span class="text-muted fs-6">{{$role->name}}</span>
           </div>
           <div class="card-body border-top m-1">
               <ul class="list-group list-group-flush">
@@ -65,6 +65,9 @@
                 @error('oldPassword')
                   <span class="text-danger ">*{{$message}}</span>
                 @enderror
+                @if (session('error'))
+                    <span class="text-danger ">*{{session('error')}}</span>
+                @endif
             </div>
             <div class="mb-3">
                 <label for="newPassword" class="form-label">New Password</label>

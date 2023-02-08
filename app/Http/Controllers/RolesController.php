@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class RolesController extends Controller
 {
-    //
     public function roleListView()
     {
-        # code...
         $roles=roles::when(request('search'),function($query){
             $query->where('name','like','%'.request('search').'%');
         })->paginate('8');
@@ -31,7 +29,6 @@ class RolesController extends Controller
     //role Creation
     public function roleCreate(Request $request)
     {
-        # code...
         $this->roleValidate($request->toArray());
         $permission_arr=$request->toArray();
         $permissions=array_splice($permission_arr,2);
@@ -61,7 +58,6 @@ class RolesController extends Controller
     //role edit blade form
     public function roleEditForm($id)
     {
-        # code...
         $role=$this->defaultRoleCheck($id);
         if(!$role){
            return back()->with('role-error','Invalid Role Id');
@@ -76,7 +72,6 @@ class RolesController extends Controller
     //for only edut permission role
     public function editPermission(Request $request)
     {
-        # code...
         Validator::make($request->toArray(),[
             'roleId'=>'required',
         ])->validate();
@@ -85,7 +80,6 @@ class RolesController extends Controller
     //role update
     public function roleUpdate(Request $request)
     {
-        # code...
         $role=$this->defaultRoleCheck($request->role_id);
         $this->roleUpdateValidate($request->toArray());
         $permission_arr=$request->toArray();
@@ -113,7 +107,6 @@ class RolesController extends Controller
     // default admin role check
     public function defaultRoleCheck($id)
     {
-        # code...
         $role=roles::where('id',$id)->first();
         $roleName=$role?$role->name:'';
         if($role && $roleName!='admin'){

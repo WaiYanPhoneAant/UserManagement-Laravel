@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    //
+    //user list
     public function userListView()
     {
-        # code...
         $users=User::when(request('search'),function($query){
             $query->where('name','like','%'.request('search').'%')
             ->orWhere('email','like','%'.request('search').'%')
@@ -23,15 +22,15 @@ class UserController extends Controller
         $users=$users->appends(request()->all());
         return view('App.user.userList',compact('users'));
     }
+    //user create view form
     public function userCreateForm()
     {
-        # code...
         $roles=roles::get();
         return view('App.Forms.createUserForm',compact('roles'));
     }
+    //user creation
     public function userCreate(Request $request)
     {
-        # code...
         $this->userValidation($request->toArray());
         $userData=$request->toArray();
         $userData['password']=Hash::make($userData['password']);
@@ -42,7 +41,6 @@ class UserController extends Controller
     // user data edit form for update user data
     public function userEditForm($id)
     {
-        # code...
         $user=User::where('id',$id)->first();
        if($user){
             $roles=roles::get();
@@ -53,16 +51,15 @@ class UserController extends Controller
     //for only edut permission user
     public function editPermission(Request $request)
     {
-        # code...
         Validator::make($request->toArray(),[
             'userId'=>'required',
         ])->validate();
         return redirect()->route('userEditForm',$request->userId);
     }
 
+    //update user data
     public function userDataUpdate(Request $request,$id)
     {
-        # code...
         $this->updateDataValidation($request->toArray(),$id);
         if($request->password){
             $this->updatePasswordValidation($request->toArray());
@@ -73,6 +70,7 @@ class UserController extends Controller
             'name'=>$request->name,
             'email'=>$request->email,
             'phone'=>$request->phone,
+            'role_id'=>$request->role_id,
             'gender'=>$request->gender,
             'is_active'=>$request->is_active ?? 0,
             'username'=>$request->username,
@@ -81,6 +79,8 @@ class UserController extends Controller
         return redirect()->route('userList')->with('success',"Successfully Update User's Data");
 
     }
+
+    //user's infomation
     public function userInfo($id){
         $user=User::where('id',$id)->first();
         $users=User::get();
@@ -91,26 +91,23 @@ class UserController extends Controller
     //delete user
     public function userDelete($id)
     {
-        # code...
         User::where('id',$id)->delete();
         return back();
 
     }
 
-    // validation
+// validation
 
     //validtion for user creation
     private function userValidation($request)
     {
-        # code...
         return Validator::make($request,[
             'name'=>'required|max:30',
             'email'=>'unique:users,email',
             'phone'=>'numeric|unique:users,phone',
-            'gender'=>'boolean',
             'role_id'=>'required|numeric',
             'is_active'=>'boolean',
-            'username'=>'required',
+            'username'=>'required|unique:users,username',
             'password'=>'required|min:8',
             'confirmPassword'=>'required|min:8|same:password',
 
@@ -120,22 +117,20 @@ class UserController extends Controller
     //validation for user data update
     private function updateDataValidation($request,$id)
     {
-        # code...
         return Validator::make($request,[
             'name'=>'required|max:30',
             'email'=>'unique:users,email,'.$id,
             'phone'=>'numeric|unique:users,phone,'.$id,
-            'gender'=>'boolean',
             'role_id'=>'required|numeric',
             'is_active'=>'boolean',
-            'username'=>'required',
+            'username'=>'required|unique:users,username,'.$id,
         ])->validate();
 
     }
+
     //validation for user data update
     private function updatePasswordValidation($request)
     {
-        # code...
         return Validator::make($request,[
             'password'=>'required|min:8',
             'confirmPassword'=>'required|min:8|same:password',

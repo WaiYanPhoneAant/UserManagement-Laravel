@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthUserController extends Controller
 {
-    //
     public function AuthUserProfile()
     {
-        # code...
-        return view('App.AuthUser.profile');
+        $role=roles::where('id',Auth::user()->role_id)->first();
+        return view('App.AuthUser.profile',compact('role'));
     }
     public function passwordUpdate(Request $request){
         $this->pwValidate($request->toArray());
@@ -28,13 +28,12 @@ class AuthUserController extends Controller
             ]);
             return back();
         }else{
-            return abort('404');
+            return back()->with('error','Old password is wrong');
         }
 
     }
     public function AuthInfoUpdate(Request $request)
     {
-        # code...
         $this->infoValidation($request->toArray());
         $update=User::where('id',Auth::user()->id)->update([
             'name'=>$request->name,
