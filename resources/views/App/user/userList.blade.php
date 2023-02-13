@@ -36,7 +36,7 @@
     </div>
     @endif
     <div class="table-responsive">
-        <table class="table table-striped  border border-1 m-auto text-center" >
+        <table class="table table-striped  border border-1 m-auto text-center mb-3" >
             <thead>
             <tr>
                 <th scope="col">Id</th>
