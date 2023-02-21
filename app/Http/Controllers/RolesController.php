@@ -54,7 +54,6 @@ class RolesController extends Controller
         }
         return $permissions;
     }
-
     //role edit blade form
     public function roleEditForm($id)
     {

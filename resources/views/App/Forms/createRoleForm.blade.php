@@ -27,7 +27,6 @@
                     @endif
                     @foreach ($features as $f)
                             <div class="row m-0 p-3 my-3">
-
                                 <div class="mb-3  d-flex flex-wrap align-items-center gap-5">
                                     <label for="userName" class="form-label fs-4 text-capitalize">{{$f->name}}</label>
                                     <div class="form-check ">
