@@ -18,10 +18,10 @@
    composer install
 ```
 
-- Run `npm run build`
+- Install `npm `
 ```bash
     # Run the Vite development server...
-    npm run dev
+    npm install
     
     # Build and version the assets for production...
     npm run build
