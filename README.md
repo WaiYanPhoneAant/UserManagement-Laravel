@@ -18,11 +18,6 @@
    composer install
 ```
 
-- Run `composer install` or ```php composer.phar install```
-```bash
-   composer install
-```
-
 - Run `npm run build`
 ```bash
     # Run the Vite development server...
